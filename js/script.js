@@ -28,6 +28,28 @@ class Stopwatch {
       miliseconds: 0
     };
   }
+  step() {
+    if (!this.running) return;
+    this.calculate();
+    this.print();
+  }
+  print() {
+    this.display.innerText = this.format(this.times);
+  }
+  format(times) {
+    return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
+  }
+  calculate() {
+    this.times.miliseconds += 1;
+    if (this.times.miliseconds >= 100) {
+      this.times.seconds += 1;
+      this.times.miliseconds = 0;
+    }
+    if (this.times.seconds >= 60) {
+      this.times.minutes += 1;
+      this.times.seconds = 0;
+    }
+  }
 }
 
 const stopwatch = new Stopwatch(
