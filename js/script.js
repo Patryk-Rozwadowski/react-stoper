@@ -4,8 +4,9 @@ startButton.addEventListener('click', () => stopwatch.start());
 const stopButton = document.getElementById('stop');
 stopButton.addEventListener('click', () => stopwatch.stop());
 
-const resetButton = document.getElementById('restart');
-stopButton.addEventListener('click', () => stopwatch.reset());
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', () => stopwatch.reset());
+
 class Stopwatch {
   constructor(display) {
     this.running = false;
@@ -29,6 +30,7 @@ class Stopwatch {
       seconds: 0,
       miliseconds: 0
     };
+    this.print();
   }
   step() {
     if (!this.running) return;
