@@ -1,0 +1,7 @@
+body { background-color: #222; }
+
+.container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+
+.stopwatch { color: #fff; text-align: center; }
+
+a { text-decoration: none; color: #fff; margin: 20px; }

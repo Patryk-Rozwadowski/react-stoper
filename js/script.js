@@ -4,6 +4,8 @@ startButton.addEventListener('click', () => stopwatch.start());
 const stopButton = document.getElementById('stop');
 stopButton.addEventListener('click', () => stopwatch.stop());
 
+const resetButton = document.getElementById('restart');
+stopButton.addEventListener('click', () => stopwatch.reset());
 class Stopwatch {
   constructor(display) {
     this.running = false;
@@ -52,8 +54,7 @@ class Stopwatch {
   }
 }
 
-const stopwatch = new Stopwatch(
-  document.querySelector('.stopwatch'));
+const stopwatch = new Stopwatch(document.querySelector('.stopwatch'));
 
 function pad0(value) {
   let result = value.toString();
