@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Stopwatch</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stopwatch</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  </head>
 
-<body>
-  <main class="container">
-    <nav class="controls">
-      <a href="#" class="button" id="start">Start</a>
-      <a href="#" class="button" id="stop">Stop</a>
-      <a href="#" class="button" id="reset">Reset</a>
-    </nav>
-    <div class="stopwatch"></div>
-    <ul class="results"></ul>
-  </main>
-  <script type="text/javascript" src="js/script.js"></script>
-</body>
+  <body>
+    <main class="container">
+      <section class="controls">
+        <a href="#" class="button" id="start">Start</a>
+        <a href="#" class="button" id="stop">Stop</a>
+        <a href="#" class="button" id="reset">Reset</a>
+        <a href="#" class="button" id="time-capture">Time capture</a>
+      </section>
+      <div class="stopwatch"></div>
+      <ul class="results">
+        <li class="time-result">Your times:</li>
+      </ul>
+    </main>
+    <script type="text/javascript" src="js/script.js"></script>
+  </body>
 
 </html>

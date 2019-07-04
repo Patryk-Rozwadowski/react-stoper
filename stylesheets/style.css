@@ -2,6 +2,10 @@ body { background-color: #222; }
 
 .container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 
-.stopwatch { color: #fff; text-align: center; }
+.stopwatch { font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 35px; color: #fff; text-align: center; margin: 50px; }
 
-a { text-decoration: none; color: #fff; margin: 20px; }
+.time-result { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; list-style: none; color: #fff; margin: 0 auto; }
+
+.results, .time-result-title { position: absolute; right: 10%; top: 100%; text-align: center; margin: 5px; }
+
+a { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 25px; text-decoration: none; color: #fff; margin: 20px; }

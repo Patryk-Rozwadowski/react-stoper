@@ -1,3 +1,8 @@
+@mixin roboto-($weight, $size) {
+  font-family: 'Roboto', sans-serif;
+  font-weight:#{$weight};
+  font-size: #{$size};
+}
 body {
   background-color: #222;
 }
@@ -10,11 +15,30 @@ body {
 }
 
 .stopwatch {
+  @include roboto-(700, 35px);
   color:#fff;
   text-align: center;
+  margin:50px;
+}
+
+.time-result {
+  @include roboto-(300, 20px);
+  list-style: none;
+  color: #fff;
+  margin:0 auto;
+}
+
+.results,
+.time-result-title {
+  position:absolute;
+  right:10%;
+  top:100%;
+  text-align: center;
+  margin:5px;
 }
 
 a {
+  @include roboto-(400, 25px);
   text-decoration: none;
   color:#fff;
   margin:20px;
