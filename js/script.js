@@ -7,6 +7,7 @@ class Stopwatch extends React.Component{
         seconds: 0,
         miliseconds: 0,
         running: false,
+        result: ''
       };
   }
 
@@ -25,35 +26,53 @@ class Stopwatch extends React.Component{
   stop() {
     this.state.running = false;
     clearInterval(this.watch);
-    this.result();
+    this.setState({
+      result: <li className = "time-result" > 
+        {
+          this.format({
+            minutes: this.state.minutes,
+            seconds: this.state.seconds,
+            miliseconds: this.state.miliseconds
+          })
+        }
+       </li>
+    })
   }
 
   reset() {
-    this.state = {
+    this.setState({
       minutes: 0,
       seconds: 0,
       miliseconds: 0
-    };
-    this.print();
+    });
     this.clearHistory();
   }
 
   result() {
-    timeHistory.textConte += `<li class='time-result'>${this.format(this.times)}</li>`;
+    this.setState({
+      result: < li className = "time-result" > 
+        {
+          this.format({
+            minutes: this.state.minutes,
+            seconds: this.state.seconds,
+            miliseconds: this.state.miliseconds
+          })
+        } 
+        </li>
+    })
   }
-
   clearHistory() {
     timeHistory.innerHTML = `<li class='time-result'>Your times:</li>`;
   }
 
-  format(times) {
+  format() {
     return `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
   }
 
   calculate() {
-    let miliseconds = this.state.miliseconds + 1,
-     seconds = this.state.seconds,
-     minutes = this.state.minutes;
+    let miliseconds = this.state.miliseconds + 1;
+    let seconds = this.state.seconds;
+    let minutes = this.state.minutes;
     if (miliseconds >= 100) {
       seconds += 1;
       miliseconds = 0;
@@ -73,16 +92,17 @@ class Stopwatch extends React.Component{
     return (
       <main className="container">
         <section className="controls">
-          <a href="#" className="button" id="start" onClick={() => {this.start()}}> Start</a>
-          <a href="#" className="button" id="stop" onClick={() => {this.stop()}}>Stop</a>
-          <a href="#" className="button" id="reset">Reset</a>
-          <a href="#" className="button" id="time-capture">Time capture</a>
+          <a href="#" className="button" onClick={() => {this.start()}}> Start</a>
+          <a href="#" className="button" onClick={() => {this.stop()}}>Stop</a>
+          <a href="#" className="button" onClick={() => {this.reset()}}>Reset</a>
+          <a href="#" className="button" onClick={() => {this.result()}}>Time capture</a>
         </section>
         < div className="stopwatch" > 
         {this.format({minutes: this.state.minutes, seconds: this.state.seconds, miliseconds: this.state.miliseconds})} 
         </div>
         <ul className="results">
           <li className="time-result">Your times:</li>
+          {this.state.result}
         </ul>
       </main>
     )
