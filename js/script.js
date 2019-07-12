@@ -1,46 +1,35 @@
-const startButton = document.getElementById('start');
-startButton.addEventListener('click', () => stopwatch.start());
+class Stopwatch extends React.Component{
 
-const stopButton = document.getElementById('stop');
-stopButton.addEventListener('click', () => stopwatch.stop());
-
-const resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', () => stopwatch.reset());
-
-const timeButton = document.getElementById('time-capture');
-timeButton.addEventListener('click', () => stopwatch.result());
-
-
-const timeHistory = document.querySelector('.results');
-
-class Stopwatch {
-
-  constructor(display) {
-    this.times = {
+  constructor(props) {
+    super(props);
+    this.state = {
         minutes: 0,
         seconds: 0,
-        miliseconds: 0
+        miliseconds: 0,
+        running: false,
       };
-    this.running = false;
-    this.display = display;
-    this.print(this.times);
   }
 
   start() {
-    if (!this.running) {
-      this.running = true;
+    if (!this.state.running) {
+      this.state.running = true;
       this.watch = setInterval(() => this.step(), 10);
     }
   }
 
+  step() {
+    if (!this.state.running) return;
+    this.calculate();
+  }
+
   stop() {
-    this.running = false;
+    this.state.running = false;
     clearInterval(this.watch);
     this.result();
   }
 
   reset() {
-    this.times = {
+    this.state = {
       minutes: 0,
       seconds: 0,
       miliseconds: 0
@@ -50,46 +39,63 @@ class Stopwatch {
   }
 
   result() {
-    timeHistory.innerHTML += `<li class='time-result'>${this.format(this.times)}</li>`;
+    timeHistory.textConte += `<li class='time-result'>${this.format(this.times)}</li>`;
   }
 
   clearHistory() {
     timeHistory.innerHTML = `<li class='time-result'>Your times:</li>`;
   }
 
-  step() {
-    if (!this.running) return;
-    this.calculate();
-    this.print();
-  }
-
-  print() {
-    this.display.innerText = this.format(this.times);
-  }
-
   format(times) {
-    return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
+    return `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
   }
 
   calculate() {
-    this.times.miliseconds += 1;
-    if (this.times.miliseconds >= 100) {
-      this.times.seconds += 1;
-      this.times.miliseconds = 0;
+    let miliseconds = this.state.miliseconds + 1,
+     seconds = this.state.seconds,
+     minutes = this.state.minutes;
+    if (miliseconds >= 100) {
+      seconds += 1;
+      miliseconds = 0;
     }
-    if (this.times.seconds >= 60) {
-      this.times.minutes += 1;
-      this.times.seconds = 0;
+    if (seconds >= 60) {
+      minutes += 1;
+      seconds = 0;
     }
+    this.setState({
+      minutes,
+      seconds,
+      miliseconds
+    });
+  }
+  
+  render() {
+    return (
+      <main className="container">
+        <section className="controls">
+          <a href="#" className="button" id="start" onClick={() => {this.start()}}> Start</a>
+          <a href="#" className="button" id="stop" onClick={() => {this.stop()}}>Stop</a>
+          <a href="#" className="button" id="reset">Reset</a>
+          <a href="#" className="button" id="time-capture">Time capture</a>
+        </section>
+        < div className="stopwatch" > 
+        {this.format({minutes: this.state.minutes, seconds: this.state.seconds, miliseconds: this.state.miliseconds})} 
+        </div>
+        <ul className="results">
+          <li className="time-result">Your times:</li>
+        </ul>
+      </main>
+    )
   }
 }
 
-const stopwatch = new Stopwatch(document.querySelector('.stopwatch'));
-
-function pad0(value) {
+const pad0 = value => {
   let result = value.toString();
   if (result.length < 2) {
     result = '0' + result;
   }
   return result;
 }
+
+const app = <Stopwatch />
+ReactDOM.render(app, document.getElementById('app'));
