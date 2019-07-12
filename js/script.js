@@ -26,43 +26,27 @@ class Stopwatch extends React.Component{
   stop() {
     this.state.running = false;
     clearInterval(this.watch);
-    this.setState({
-      result: <li className = "time-result" > 
-        {
-          this.format({
-            minutes: this.state.minutes,
-            seconds: this.state.seconds,
-            miliseconds: this.state.miliseconds
-          })
-        }
-       </li>
-    })
+    this.result();
   }
 
   reset() {
     this.setState({
       minutes: 0,
       seconds: 0,
-      miliseconds: 0
+      miliseconds: 0,
+      result: '0:00:00'
     });
-    this.clearHistory();
+    this.result();
   }
 
   result() {
     this.setState({
-      result: < li className = "time-result" > 
-        {
-          this.format({
-            minutes: this.state.minutes,
-            seconds: this.state.seconds,
-            miliseconds: this.state.miliseconds
-          })
-        } 
-        </li>
+      result: this.format({
+        minutes: this.state.minutes,
+        seconds: this.state.seconds,
+        miliseconds: this.state.miliseconds
+      })
     })
-  }
-  clearHistory() {
-    timeHistory.innerHTML = `<li class='time-result'>Your times:</li>`;
   }
 
   format() {
@@ -102,7 +86,7 @@ class Stopwatch extends React.Component{
         </div>
         <ul className="results">
           <li className="time-result">Your times:</li>
-          {this.state.result}
+          <li className="time-result">{this.state.result}</li>
         </ul>
       </main>
     )
