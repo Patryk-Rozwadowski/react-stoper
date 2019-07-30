@@ -35,29 +35,19 @@ class Stopwatch extends React.Component {
       minutes: 0,
       seconds: 0,
       miliseconds: 0,
-      result: '0:00:00'
+      result: []
     });
-    this.result();
   }
 
   result() {
     const x = `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
-    const times = [...this.state.result, TimesResult];
+    const a = Math.floor(Math.random() * 999999)
+    const times = [...this.state.result, x];
     this.setState({
-      result: times,
-      time: x
+      result: times
     })
   }
 
-  timeList() {
-    let miliseconds = this.state.miliseconds;
-    let seconds = this.state.seconds;
-    let minutes = this.state.minutes;
-
-    this.setState({
-      time: miliseconds,seconds,minutes
-    })
-  }
 
   format() {
     return `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
@@ -96,13 +86,13 @@ class Stopwatch extends React.Component {
         </div>
         <ul className="results">
           <li className="time-result">Your times:</li>
-          {this.state.result.map((TimesResult, index) => <TimesResult key={index} time={this.state.time} />)}
+          {this.state.result.map(el => <TimesResult key={el} time={el} />)}
         </ul>
       </main>
     )
   }
 }
-const TimesResult = ({ time }) => <li className="time-result">{time}</li>
+const TimesResult = (props) => <li className="time-result">{props.time}</li>
 const pad0 = value => {
   let result = value.toString();
   if (result.length < 2) {
