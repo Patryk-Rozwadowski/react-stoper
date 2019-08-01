@@ -40,7 +40,7 @@ class Stopwatch extends React.Component {
   }
 
   result() {
-    const x = `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
+    const x = this.format();
     const a = Math.floor(Math.random() * 999999)
     const times = [...this.state.result, x];
     this.setState({
